@@ -1,24 +1,44 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Nav from './components/nav/Nav';
+import { useState } from 'react';
+import SlidingMenu from './components/nav/slidingmenu/Slidingmenu';
+import Contact from './components/contact/Contact';
+import Home from './components/home/Home';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+
 
 function App() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="App">
+        <Nav toggleNav={toggleNav} />
+        <SlidingMenu isNavOpen={isNavOpen} />
+        
+        <Routes >
+
+          <Route element={<Layout/>}>
+
+           <Route path='/' element={<Home/>} >
+
+            <Route path='/' element={<Contact/>}/>
+
+            
+           </Route>
+
+          </Route>
+
+        </Routes>
+
+      </div>
+    </>
   );
 }
 
